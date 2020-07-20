@@ -1,15 +1,16 @@
 package com.softserve.edu.service;
 
+
 public interface DataService {
 
-    public void addStudent(String studentName);
+    void addStudent(String studentName);
 
-    public void addMentor(String mentorName);
+    void addMentor(String mentorName);
 
-    public void addSprint(String sprintName);
+    void addSprint(String sprintName);
 
-    public void addCommunication(String studentName, String mentorName);
-    
-    public void addSolution(String studentName, String sprintName, int score);
-    
+    void addCommunication(String studentName, String mentorName);
+
+    void addSolution(String studentName, String sprintName, int score);
+
 }
