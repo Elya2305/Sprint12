@@ -22,7 +22,6 @@ import javax.swing.*;
 public class MarathonServiceImpl implements MarathonService {
 
     private DataServiceImpl dataService;
-    private List<SprintScore> sprintScores;
 
     @Autowired
     public MarathonServiceImpl(DataServiceImpl dataService) {

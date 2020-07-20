@@ -32,4 +32,20 @@ public class ScoreServiceImpl implements ScoreService {
     public void addAverageScore(String studentName, double avgScore){
         averageScores.add(new AverageScore(studentName, avgScore));
     }
+
+    public void addSprintScoreToStudentScore(String studentName, int score){
+        studentScores
+                .stream()
+                .filter(o -> o.getStudentName().equals(studentName))
+                .findFirst()
+                .ifPresent(studentScore ->
+                        studentScore.addSprintScore(getSprintScore(studentName, score)));
+    }
+
+    public SprintScore getSprintScore(String sprintName, int score){
+        return sprintScores.stream()
+                .filter(o -> o.getScore() == score && o.getSprintName().equals(sprintName))
+                .findFirst()
+                .orElse(new SprintScore(sprintName, score));
+    }
 }

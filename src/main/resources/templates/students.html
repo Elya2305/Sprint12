@@ -3,7 +3,6 @@
 <div th:replace="~{/components/header :: header(value='Students')}"></div>
 <div th:replace="~{/components/navbar :: navbar}"></div>
 <body>
-
 <div class="container">
     <button class="btn btn-outline-primary my-2" type="button" data-toggle="collapse" data-target="#collapseExample"
             aria-expanded="false" aria-controls="collapseExample">
@@ -23,7 +22,11 @@
 
     <div class="list-group my-3">
         <th:block th:each="student : ${students}">
-            <a href="#" class="list-group-item list-group-item-action" th:text="${student.getName()}"></a>
+            <form  action="/student-info" method="post">
+                <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
+                <button type="submit" class="list-group-item list-group-item-action"
+                        th:text="${student.getName()}"></button>
+            </form>
         </th:block>
     </div>
 </div>

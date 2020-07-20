@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/components/header :: header(value='Student Info')}"></div>
+<div th:replace="~{/components/navbar :: navbar}"></div>
+<body>
+<div class="container">
+<!--    <h2>Hi!</h2>-->
+    <div class="jumbotron">
+        <div class="form-row">
+            <h1 class="display-4">Hello, world!</h1>
+            <p class="lead">Mentors: </p>
+        </div>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>
+</div>
+</body>
+<div th:replace="~{/components/jslib :: js-lb}"></div>
+</html>

@@ -7,7 +7,9 @@ import com.softserve.edu.entity.Communication;
 import com.softserve.edu.entity.Entity;
 import com.softserve.edu.entity.Solution;
 import com.softserve.edu.service.DataService;
+import com.softserve.edu.service.ScoreService;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +21,21 @@ public class DataServiceImpl implements DataService {
     private List<Entity> sprints;
     private List<Communication> communication;
     private List<Solution> solution;
+    private ScoreService scoreService;
 
-    public DataServiceImpl() {
+    @Autowired
+    public DataServiceImpl(ScoreService scoreService) {
         this.students = new ArrayList<>();
         this.mentors = new ArrayList<>();
         this.sprints = new ArrayList<>();
         this.communication = new ArrayList<>();
         this.solution = new ArrayList<>();
+        this.scoreService = scoreService;
     }
 
     public void addStudent(String studentName) {
         students.add(new Entity(studentName));
+        scoreService.addStudentScore(studentName);
     }
 
     public void addMentor(String mentorName) {
