@@ -22,7 +22,7 @@
 
     <div class="list-group my-3">
         <th:block th:each="student : ${students}">
-            <form  action="/student-info" method="post">
+            <form  th:action="@{/students/${student.getName()}}" method="get">
                 <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
                 <button type="submit" class="list-group-item list-group-item-action"
                         th:text="${student.getName()}"></button>

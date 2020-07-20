@@ -43,9 +43,20 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     public SprintScore getSprintScore(String sprintName, int score){
-        return sprintScores.stream()
+        SprintScore sprintScore =  sprintScores.stream()
                 .filter(o -> o.getScore() == score && o.getSprintName().equals(sprintName))
                 .findFirst()
                 .orElse(new SprintScore(sprintName, score));
+        sprintScores.add(sprintScore);
+        return sprintScore;
+    }
+
+    public List<SprintScore> getListOfScores(String studentName){
+        return studentScores
+                .stream()
+                .filter(o -> o.getStudentName().equals(studentName))
+                .findFirst()
+                .map(StudentScore::getSprintScores)
+                .orElse(null);
     }
 }

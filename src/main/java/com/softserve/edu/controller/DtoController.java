@@ -6,11 +6,10 @@ import com.softserve.edu.service.impl.DataServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/students")
 public class DtoController {
 
     DataServiceImpl dataService;
@@ -23,28 +22,29 @@ public class DtoController {
         this.scoreService = scoreService;
     }
 
-    @GetMapping("/students")
+    @GetMapping
     public String getStudent(Model model) {
         model.addAttribute("students", dataService.getStudents());
         return "students";
     }
 
-    @PostMapping("/students")
+    @PostMapping
     public String addStudent(@RequestParam String studentName, Model model) {
         dataService.addStudent(studentName);
         model.addAttribute("students", dataService.getStudents());
         return "students";
     }
 
-    @PostMapping("/student-info")
-    public String getStudentInfo(@RequestParam String studentName, Model model) {
+    @GetMapping("/{studentName}")
+    public String getStudentInfo(@PathVariable String studentName, Model model) {
         model.addAttribute("studentName", studentName);
+        model.addAttribute("scores", scoreService.getListOfScores(studentName));
         return "student-info";
     }
 
-    public String addScore(String studentName, int score){
+    @PostMapping("/{studentName}")
+    public String addScore(@PathVariable String studentName, int score){
         scoreService.addSprintScore(studentName, score);
-        return "student-info";
+        return "redirect:/{studentName}";
     }
-
 }
