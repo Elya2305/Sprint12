@@ -3,18 +3,19 @@ package com.softserve.edu.service.impl;
 import com.softserve.edu.dto.AverageScore;
 import com.softserve.edu.dto.SprintScore;
 import com.softserve.edu.dto.StudentScore;
+import com.softserve.edu.service.ScoreService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DtoServiceImpl {
+public class ScoreServiceImpl implements ScoreService {
     private List<SprintScore> sprintScores;
     private List<StudentScore> studentScores;
     private List<AverageScore> averageScores;
 
-    public DtoServiceImpl() {
+    public ScoreServiceImpl() {
         this.sprintScores = new ArrayList<>();
         this.studentScores = new ArrayList<>();
         this.averageScores = new ArrayList<>();

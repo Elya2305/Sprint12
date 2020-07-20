@@ -28,8 +28,5 @@ public class MarathonController {
         model.addAttribute("message", message);
         return "index";
     }
-    @GetMapping("/home")
-    public String home() {
-        return "students";
-    }
+
 }

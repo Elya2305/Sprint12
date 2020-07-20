@@ -5,14 +5,16 @@
 <body>
 
 <div class="container">
-    <button class="btn btn-outline-primary my-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-outline-primary my-2" type="button" data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
         Add new student
     </button>
     <div class="collapse" id="collapseExample">
         <div class="card card-body">
-            <form action="/add-student" method="post">
+            <form action="/students" method="post">
                 <div class="form-group">
-                    <input class="form-control" type="text" id="studentName" placeholder="Student's name">
+                    <input class="form-control" type="text" name="studentName" id="studentName"
+                           placeholder="Student's name"/>
                 </div>
                 <button type="submit" class="btn btn-outline-primary">Submit</button>
             </form>
@@ -20,9 +22,9 @@
     </div>
 
     <div class="list-group my-3">
-        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+        <th:block th:each="student : ${students}">
+            <a href="#" class="list-group-item list-group-item-action" th:text="${student.getName()}"></a>
+        </th:block>
     </div>
 </div>
 </body>

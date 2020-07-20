@@ -1,5 +1,12 @@
 package com.softserve.edu.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString
+@Getter
+@Setter
 public class Entity {
     private int id;
     private String name;
@@ -8,22 +15,6 @@ public class Entity {
 
     public Entity(String name) {
         this.id = counter++;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }
