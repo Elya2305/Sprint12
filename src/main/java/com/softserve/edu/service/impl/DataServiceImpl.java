@@ -65,7 +65,7 @@ public class DataServiceImpl implements DataService {
         ));
     }
 
-    public void deleteStudent(String studentName){
+    public void deleteStudent(String studentName) {
         Entity student = this.students
                 .stream()
                 .filter(o -> o.getName().equals(studentName))
@@ -74,7 +74,16 @@ public class DataServiceImpl implements DataService {
         scoreService.deleteStudentScore(studentName);
     }
 
-    public void updateStudent(String studentName, String newName){
+    public void deleteMentor(String mentorName) {
+        Entity mentor = this.mentors
+                .stream()
+                .filter(o -> o.getName().equals(mentorName))
+                .findFirst().orElse(null);
+        this.mentors.remove(mentor);
+        mentorStudentService.deleteMentorStudent(mentorName);
+    }
+
+    public void updateStudent(String studentName, String newName) {
         this.students
                 .stream()
                 .filter(o -> o.getName().equals(studentName))

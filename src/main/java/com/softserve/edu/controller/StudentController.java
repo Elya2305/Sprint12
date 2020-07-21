@@ -41,6 +41,7 @@ public class StudentController {
     @GetMapping("/update/{studentName}")
     public String getUpdateStudent(@PathVariable String studentName, Model model){
         model.addAttribute("name", studentName);
+        model.addAttribute("entity", "students");
         return "update";
     }
 

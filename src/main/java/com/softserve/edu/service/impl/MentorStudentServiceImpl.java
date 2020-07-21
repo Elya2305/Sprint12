@@ -18,4 +18,11 @@ public class MentorStudentServiceImpl implements MentorStudentService {
     public void addMentorStudent(String mentorName){
         mentorStudents.add(new MentorStudent(mentorName));
     }
+
+    public void deleteMentorStudent(String mentorName){
+        mentorStudents.remove(mentorStudents.stream()
+                .filter(o -> o.getMentorName().equals(mentorName))
+                .findFirst()
+                .orElse(null));
+    }
 }

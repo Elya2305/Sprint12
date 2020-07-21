@@ -4,8 +4,8 @@
 <div th:replace="~{/components/navbar :: navbar(add=false)}"></div>
 <body>
 <div class="container">
-    <div class="col-7">
-        <form class="form-signin" method="post" action="/students/postUpdate">
+    <div class="col-7"> <!--class="form-signin"-->
+        <form method="post" th:action="@{'/' + ${entity} + '/postUpdate'}">
             <div class="form-group">
                 <input type="hidden" class="form-control" name="oldName" th:value="${name}">
                 <input type="text" class="form-control" name="newName" th:placeholder="${name}">
