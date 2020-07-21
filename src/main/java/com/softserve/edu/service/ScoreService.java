@@ -16,4 +16,6 @@ public interface ScoreService {
     List<SprintScore> getListOfScores(String studentName);
 
     void deleteStudentScore(String studentName);
+
+    void updateStudentScore(String studentName, String newName);
 }

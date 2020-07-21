@@ -21,19 +21,19 @@ public class ScoreServiceImpl implements ScoreService {
         this.averageScores = new ArrayList<>();
     }
 
-    public void addSprintScore(String sprintName, int score){
+    public void addSprintScore(String sprintName, int score) {
         sprintScores.add(new SprintScore(sprintName, score));
     }
 
-    public void addStudentScore(String studentName){
+    public void addStudentScore(String studentName) {
         studentScores.add(new StudentScore(studentName));
     }
 
-    public void addAverageScore(String studentName, double avgScore){
+    public void addAverageScore(String studentName, double avgScore) {
         averageScores.add(new AverageScore(studentName, avgScore));
     }
 
-    public void addSprintScoreToStudentScore(String studentName, String sprintName, int score){
+    public void addSprintScoreToStudentScore(String studentName, String sprintName, int score) {
         studentScores
                 .stream()
                 .filter(o -> o.getStudentName().equals(studentName))
@@ -42,16 +42,23 @@ public class ScoreServiceImpl implements ScoreService {
                         studentScore.addSprintScore(getSprintScore(sprintName, score)));
     }
 
-    public void deleteStudentScore(String studentName){
+    public void deleteStudentScore(String studentName) {
         StudentScore studentScore = studentScores.stream()
                 .filter(o -> o.getStudentName()
-                .equals(studentName))
+                        .equals(studentName))
                 .findFirst().orElse(null);
         studentScores.remove(studentScore);
     }
 
-    public SprintScore getSprintScore(String sprintName, int score){
-        SprintScore sprintScore =  sprintScores.stream()
+    public void updateStudentScore(String studentName, String newName) {
+        studentScores.stream()
+                .filter(o -> o.getStudentName().equals(studentName))
+                .findFirst()
+                .ifPresent(o -> o.setStudentName(newName));
+    }
+
+    public SprintScore getSprintScore(String sprintName, int score) {
+        SprintScore sprintScore = sprintScores.stream()
                 .filter(o -> o.getScore() == score && o.getSprintName().equals(sprintName))
                 .findFirst()
                 .orElse(new SprintScore(sprintName, score));
@@ -59,7 +66,7 @@ public class ScoreServiceImpl implements ScoreService {
         return sprintScore;
     }
 
-    public List<SprintScore> getListOfScores(String studentName){
+    public List<SprintScore> getListOfScores(String studentName) {
         return studentScores
                 .stream()
                 .filter(o -> o.getStudentName().equals(studentName))

@@ -70,6 +70,14 @@ public class DataServiceImpl implements DataService {
         scoreService.deleteStudentScore(studentName);
     }
 
+    public void updateStudent(String studentName, String newName){
+        this.students
+                .stream()
+                .filter(o -> o.getName().equals(studentName))
+                .findFirst().ifPresent(student -> student.setName(newName));
+        scoreService.updateStudentScore(studentName, newName);
+    }
+
     public int findIdByName(List<Entity> entities, String name) {
         return entities.stream()
                 .filter(o -> o.getName().equals(name))

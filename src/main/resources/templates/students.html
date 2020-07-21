@@ -31,7 +31,8 @@
                 </div>
                 <div class="col-4">
                     <div class="btn-group">
-                        <a role="button" href="#" class="btn btn-outline-primary">Update</a>
+                        <a role="button" th:href="@{/students/update(studentName=${student.getName()})}"
+                           class="btn btn-outline-primary">Update</a>
                         <form method="post" action="/students/delete">
                             <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
                             <button class="btn btn-outline-danger">Delete</button>
