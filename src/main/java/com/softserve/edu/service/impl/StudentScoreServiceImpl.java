@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ScoreServiceImpl implements ScoreService {
+public class StudentScoreServiceImpl implements ScoreService {
     private List<SprintScore> sprintScores;
     private List<StudentScore> studentScores;
     private List<AverageScore> averageScores;
 
-    public ScoreServiceImpl() {
+    public StudentScoreServiceImpl() {
         this.sprintScores = new ArrayList<>();
         this.studentScores = new ArrayList<>();
         this.averageScores = new ArrayList<>();
@@ -73,5 +73,32 @@ public class ScoreServiceImpl implements ScoreService {
                 .findFirst()
                 .map(StudentScore::getSprintScores)
                 .orElse(null);
+    }
+
+    public StudentScore getStudentScoreByStudentName(String studentName){
+        return studentScores.stream()
+                .filter(o -> o.getStudentName().equals(studentName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<StudentScore> getStudentScores(){
+        return studentScores;
+    }
+
+    public AverageScore getAvgScore(String studentName){
+        double avg = getStudentScoreByStudentName(studentName)
+                .getSprintScores()
+                .stream()
+                .mapToInt(SprintScore::getScore)
+                .average()
+                .orElse(0);
+        AverageScore averageScore = new AverageScore(studentName, avg);
+        averageScores.add(averageScore);
+        return averageScore;
+    }
+
+    public List<AverageScore> getAllAverageScores(){
+        return averageScores;
     }
 }

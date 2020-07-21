@@ -91,6 +91,14 @@ public class DataServiceImpl implements DataService {
         scoreService.updateStudentScore(studentName, newName);
     }
 
+    public void updateMentor(String mentorName, String newName) {
+        this.mentors
+                .stream()
+                .filter(o -> o.getName().equals(mentorName))
+                .findFirst().ifPresent(mentor -> mentor.setName(newName));
+        mentorStudentService.updateMentorStudent(mentorName, newName);
+    }
+
     public int findIdByName(List<Entity> entities, String name) {
         return entities.stream()
                 .filter(o -> o.getName().equals(name))
@@ -98,4 +106,8 @@ public class DataServiceImpl implements DataService {
                 .findFirst()
                 .get();
     }
+
+
+
+
 }

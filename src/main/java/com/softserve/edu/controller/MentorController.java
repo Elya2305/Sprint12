@@ -38,6 +38,16 @@ public class MentorController {
     @GetMapping("/update/{mentorName}")
     public String getUpdateMentor(@PathVariable String mentorName, Model model){
         model.addAttribute("name", mentorName);
+        model.addAttribute("entity", "mentors");
         return "update";
+    }
+
+    @PostMapping("/postUpdate")
+    public String postUpdateStudent(@RequestParam String oldName,
+                                    @RequestParam String newName, Model model){
+        dataService.updateMentor(oldName, newName);
+        model.addAttribute("mentorName", newName);
+        model.addAttribute("mentors", dataService.getMentors());
+        return "mentors";
     }
 }

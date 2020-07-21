@@ -25,4 +25,16 @@ public class MentorStudentServiceImpl implements MentorStudentService {
                 .findFirst()
                 .orElse(null));
     }
+
+    public void updateMentorStudent(String mentorName, String newName){
+        mentorStudents.stream()
+                .filter(o -> o.getMentorName().equals(mentorName))
+                .findFirst().ifPresent(o -> o.setMentorName(newName));
+    }
+
+    public MentorStudent getMentorStudent(String mentorName){
+        return mentorStudents.stream()
+                .filter(o -> o.getMentorName().equals(mentorName))
+                .findFirst().orElse(null);
+    }
 }

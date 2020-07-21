@@ -2,6 +2,7 @@ package com.softserve.edu;
 
 import java.util.List;
 
+import com.softserve.edu.entity.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,19 +17,23 @@ import com.softserve.edu.service.MarathonService;
 @SpringBootTest
 public class ApplicationTest {
     
-    //@Autowired
+    @Autowired
     private MarathonService marathonService;
     
-    //Autowired
+    @Autowired
     private DataService dataService;
 
-    @Autowired
-    public ApplicationTest(MarathonService marathonService) {
-        this.marathonService = marathonService;
+    public ApplicationTest() {
         fillDataService();
     }
     
     private void fillDataService() {
+        dataService.addStudent("Elya");
+        dataService.addStudent("Den");
+
+        dataService.addMentor("Olga");
+        dataService.addMentor("Oleg");
+
         // TODO for dataService
     }
     
