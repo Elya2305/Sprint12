@@ -1,18 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/components/header :: header(value='Student Info')}"></div>
-<div th:replace="~{/components/navbar :: navbar}"></div>
+<div th:replace="~{/components/navbar :: navbar(add=true)}"></div>
 <body>
 <div class="container">
-<!--    <h2>Hi!</h2>-->
-    <div class="jumbotron">
-        <div class="form-row">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">Mentors: </p>
+    <div class="row">
+        <h1 class="display-4 ml-2" th:text="${studentName}"></h1>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                <div class="card card-body my-2">
+                    <form th:action="@{'/students/' + ${studentName}}" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="sprintName"
+                                   placeholder="Sprint name"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="score"
+                                   placeholder="Score"/>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
+    <div class="row">
+        <div class="col-8">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Sprint Name</th>
+                    <th scope="col">Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="score, iter : ${scores}">
+                    <td th:text="${iter.index + 1}"></td>
+                    <td th:text="${score.getSprintName()}"></td>
+                    <td th:text="${score.getScore()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <h3 class="mx-auto">Mentors: </h3>
+                <button class="btn btn-outline-secondary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    Add mentor
+                </button>
+<!--                <button type="submit" class="btn btn-outline-secondary">Add mentor</button>-->
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+                    <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <form action="/students" method="post">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="mentorName" id="mentorName"
+                                       placeholder="Mentor's name"/>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
 </div>
 </body>
 <div th:replace="~{/components/jslib :: js-lb}"></div>

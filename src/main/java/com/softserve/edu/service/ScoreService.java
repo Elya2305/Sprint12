@@ -1,7 +1,6 @@
 package com.softserve.edu.service;
 
 import com.softserve.edu.dto.SprintScore;
-import com.softserve.edu.dto.StudentScore;
 
 import java.util.List;
 
@@ -12,7 +11,9 @@ public interface ScoreService {
 
     void addAverageScore(String studentName, double avgScore);
 
-    public void addSprintScoreToStudentScore(String studentName, int score);
+    void addSprintScoreToStudentScore(String studentName, String sprintName, int score);
 
-    public List<SprintScore> getListOfScores(String studentName);
+    List<SprintScore> getListOfScores(String studentName);
+
+    void deleteStudentScore(String studentName);
 }

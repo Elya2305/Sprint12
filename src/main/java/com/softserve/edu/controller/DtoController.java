@@ -15,7 +15,6 @@ public class DtoController {
     DataServiceImpl dataService;
     ScoreService scoreService;
 
-
     @Autowired
     public DtoController(DataServiceImpl dataService, ScoreService scoreService) {
         this.dataService = dataService;
@@ -23,16 +22,27 @@ public class DtoController {
     }
 
     @GetMapping
-    public String getStudent(Model model) {
+    public String getStudents(Model model) {
         model.addAttribute("students", dataService.getStudents());
         return "students";
     }
 
     @PostMapping
-    public String addStudent(@RequestParam String studentName, Model model) {
+    public String addStudent(@RequestParam String studentName) {
         dataService.addStudent(studentName);
-        model.addAttribute("students", dataService.getStudents());
-        return "students";
+        return "redirect:/students";
+    }
+
+    @PostMapping("/delete")
+    public String deleteStudent(@RequestParam String studentName){
+        dataService.deleteStudent(studentName);
+        return "redirect:/students";
+    }
+
+    @PutMapping("/update")
+    public String updateStudent(@RequestParam String studentName){
+        System.out.println(studentName);
+        return "redirect:/students";
     }
 
     @GetMapping("/{studentName}")
@@ -43,8 +53,9 @@ public class DtoController {
     }
 
     @PostMapping("/{studentName}")
-    public String addScore(@PathVariable String studentName, int score){
-        scoreService.addSprintScore(studentName, score);
-        return "redirect:/{studentName}";
+    public String addScore(@PathVariable("studentName") String studentName,
+            @RequestParam String sprintName, @RequestParam int score){
+        scoreService.addSprintScoreToStudentScore(studentName, sprintName, score);
+        return "redirect:/students/" + studentName;
     }
 }

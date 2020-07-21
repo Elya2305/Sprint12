@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{/components/header :: header(value='Students')}"></div>
-<div th:replace="~{/components/navbar :: navbar}"></div>
+<div th:replace="~{/components/navbar :: navbar(add=false)}"></div>
 <body>
 <div class="container">
     <button class="btn btn-outline-primary my-2" type="button" data-toggle="collapse" data-target="#collapseExample"
@@ -19,14 +19,26 @@
             </form>
         </div>
     </div>
-
     <div class="list-group my-3">
         <th:block th:each="student : ${students}">
-            <form  th:action="@{/students/${student.getName()}}" method="get">
-                <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
-                <button type="submit" class="list-group-item list-group-item-action"
-                        th:text="${student.getName()}"></button>
-            </form>
+            <div class="row">
+                <div class="col-8">
+                    <form th:action="@{'/students/' + ${student.getName()}}" method="get">
+                        <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
+                        <button type="submit" class="list-group-item list-group-item-action"
+                                th:text="${student.getName()}"></button>
+                    </form>
+                </div>
+                <div class="col-4">
+                    <div class="btn-group">
+                        <a role="button" href="#" class="btn btn-outline-primary">Update</a>
+                        <form method="post" action="/students/delete">
+                            <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
+                            <button class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </th:block>
     </div>
 </div>

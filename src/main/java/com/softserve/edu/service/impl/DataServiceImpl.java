@@ -61,6 +61,15 @@ public class DataServiceImpl implements DataService {
         ));
     }
 
+    public void deleteStudent(String studentName){
+        Entity student = this.students
+                .stream()
+                .filter(o -> o.getName().equals(studentName))
+                .findFirst().orElse(null);
+        this.students.remove(student);
+        scoreService.deleteStudentScore(studentName);
+    }
+
     public int findIdByName(List<Entity> entities, String name) {
         return entities.stream()
                 .filter(o -> o.getName().equals(name))
