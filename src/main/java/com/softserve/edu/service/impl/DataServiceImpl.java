@@ -7,6 +7,7 @@ import com.softserve.edu.entity.Communication;
 import com.softserve.edu.entity.Entity;
 import com.softserve.edu.entity.Solution;
 import com.softserve.edu.service.DataService;
+import com.softserve.edu.service.MentorStudentService;
 import com.softserve.edu.service.ScoreService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,17 @@ public class DataServiceImpl implements DataService {
     private List<Communication> communication;
     private List<Solution> solution;
     private ScoreService scoreService;
+    private MentorStudentService mentorStudentService;
 
     @Autowired
-    public DataServiceImpl(ScoreService scoreService) {
+    public DataServiceImpl(ScoreService scoreService, MentorStudentService mentorStudentService) {
         this.students = new ArrayList<>();
         this.mentors = new ArrayList<>();
         this.sprints = new ArrayList<>();
         this.communication = new ArrayList<>();
         this.solution = new ArrayList<>();
         this.scoreService = scoreService;
+        this.mentorStudentService = mentorStudentService;
     }
 
     public void addStudent(String studentName) {
@@ -40,6 +43,7 @@ public class DataServiceImpl implements DataService {
 
     public void addMentor(String mentorName) {
         mentors.add(new Entity(mentorName));
+        mentorStudentService.addMentorStudent(mentorName);
     }
 
     public void addSprint(String sprintName) {

@@ -22,11 +22,4 @@ public class MarathonController {
     public MarathonController(MarathonService marathonService) {
         this.marathonService = marathonService;
     }
-
-    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model) {
-        model.addAttribute("message", message);
-        return "index";
-    }
-
 }

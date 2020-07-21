@@ -3,7 +3,24 @@
 <div th:replace="~{/components/header :: header(value='Mentors')}"></div>
 <div th:replace="~{/components/navbar :: navbar(add=false)}"></div>
 <body>
-
+<div class="container">
+    <button class="btn btn-outline-primary my-2" type="button" data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+        Add new mentor
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form action="/mentors" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="mentorName" id="mentorName"
+                           placeholder="Mentor's name"/>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div th:replace="~{/components/list-entity :: entities (list=${mentors}, entityName='mentor')}"></div>
+</div>
 </body>
 <div th:replace="~{/components/jslib :: js-lb}"></div>
 </html>

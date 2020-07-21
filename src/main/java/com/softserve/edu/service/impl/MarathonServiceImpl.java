@@ -43,10 +43,6 @@ public class MarathonServiceImpl implements MarathonService {
     }
 
     public StudentScore studentResult(String studentName) {
-/*        dataService.getSolution()
-                .stream()
-                .filter(o -> o.getIdStudent() == dataService
-                        .findIdByName(dataService.getStudents(), studentName))*/
         // TODO
         return null;
     }

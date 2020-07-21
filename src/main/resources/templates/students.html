@@ -19,29 +19,9 @@
             </form>
         </div>
     </div>
-    <div class="list-group my-3">
-        <th:block th:each="student : ${students}">
-            <div class="row">
-                <div class="col-8">
-                    <form th:action="@{'/students/' + ${student.getName()}}" method="get">
-                        <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
-                        <button type="submit" class="list-group-item list-group-item-action"
-                                th:text="${student.getName()}"></button>
-                    </form>
-                </div>
-                <div class="col-4">
-                    <div class="btn-group">
-                        <a role="button" th:href="@{/students/update(studentName=${student.getName()})}"
-                           class="btn btn-outline-primary">Update</a>
-                        <form method="post" action="/students/delete">
-                            <input th:name="studentName" th:value="${student.getName()}" type="hidden"/>
-                            <button class="btn btn-outline-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </th:block>
-    </div>
+
+    <div th:replace="~{/components/list-entity :: entities (list=${students}, entityName='student')}"></div>
+
 </div>
 </body>
 <div th:replace="~{/components/jslib :: js-lb}"></div>

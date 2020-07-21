@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/students")
-public class DtoController {
+public class StudentController {
 
     DataServiceImpl dataService;
     ScoreService scoreService;
 
     @Autowired
-    public DtoController(DataServiceImpl dataService, ScoreService scoreService) {
+    public StudentController(DataServiceImpl dataService, ScoreService scoreService) {
         this.dataService = dataService;
         this.scoreService = scoreService;
     }
@@ -38,10 +38,9 @@ public class DtoController {
         return "redirect:/students";
     }
 
-    @GetMapping("/update")
-    public String getUpdateStudent(@RequestParam String studentName, Model model){
+    @GetMapping("/update/{studentName}")
+    public String getUpdateStudent(@PathVariable String studentName, Model model){
         model.addAttribute("name", studentName);
-
         return "update";
     }
 
