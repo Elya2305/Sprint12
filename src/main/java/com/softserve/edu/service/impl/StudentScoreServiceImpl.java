@@ -99,6 +99,7 @@ public class StudentScoreServiceImpl implements ScoreService {
     }
 
     public List<AverageScore> getAllAverageScores(){
+        System.out.println(averageScores);
         return averageScores;
     }
 }

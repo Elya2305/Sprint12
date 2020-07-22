@@ -1,8 +1,6 @@
 package com.softserve.edu.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.softserve.edu.dto.MentorStudent;
 import com.softserve.edu.entity.Communication;
 import com.softserve.edu.entity.Entity;
 import com.softserve.edu.entity.Solution;
@@ -11,8 +9,11 @@ import com.softserve.edu.service.MentorStudentService;
 import com.softserve.edu.service.ScoreService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Getter
@@ -65,6 +66,20 @@ public class DataServiceImpl implements DataService {
         ));
     }
 
+    public void addStudentToMentor(String mentorName, String studentName){
+        MentorStudent mentorStudent = mentorStudentService.getMentorStudent(mentorName);
+        if(mentorStudent != null){
+            mentorStudent.addStudent(studentName);
+            addCommunication(studentName, mentorName);
+        }
+    }
+
+    public Entity getMentor(String mentorName){
+        return mentors.stream()
+                .filter(o -> o.getName().equals(mentorName))
+                .findFirst().orElse(null);
+    }
+
     public void deleteStudent(String studentName) {
         Entity student = this.students
                 .stream()
@@ -99,6 +114,15 @@ public class DataServiceImpl implements DataService {
         mentorStudentService.updateMentorStudent(mentorName, newName);
     }
 
+    public List<String> getMentorsByStudentName(String studentName){
+        List<Integer> idMentors = communication.stream()
+                .filter(o -> o.getIdStudent() == findIdByName(students, studentName))
+                .map(Communication::getIdMentor)
+                .collect(Collectors.toList());
+        return this.mentors.stream().filter(o -> idMentors.contains(o.getId()))
+                .map(Entity::getName).collect(Collectors.toList());
+    }
+
     public int findIdByName(List<Entity> entities, String name) {
         return entities.stream()
                 .filter(o -> o.getName().equals(name))
@@ -106,8 +130,4 @@ public class DataServiceImpl implements DataService {
                 .findFirst()
                 .get();
     }
-
-
-
-
 }

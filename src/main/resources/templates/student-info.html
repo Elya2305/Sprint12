@@ -50,19 +50,18 @@
                         aria-expanded="false" aria-controls="collapseExample">
                     Add mentor
                 </button>
-<!--                <button type="submit" class="btn btn-outline-secondary">Add mentor</button>-->
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                <div th:if="${error}" th:text="${error}" class="alert alert-danger" role="alert">
+                </div>
+                <th:block th:each="mentor : ${mentors}">
+                    <li class="list-group-item" th:text="${mentor}"></li>
+                </th:block>
                     <div class="collapse" id="collapseExample">
                     <div class="card card-body">
-                        <form action="/students" method="post">
+                        <form th:action="@{'/students/' + ${studentName} + '/addMentor'}" method="post">
                             <div class="form-group">
-                                <input class="form-control" type="text" name="mentorName" id="mentorName"
+                                <input class="form-control" type="text" name="mentorName"
                                        placeholder="Mentor's name"/>
                             </div>
                             <button type="submit" class="btn btn-outline-primary">Submit</button>

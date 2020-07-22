@@ -13,4 +13,6 @@ public interface DataService {
 
     void addSolution(String studentName, String sprintName, int score);
 
+    void addStudentToMentor(String mentorName, String studentName);
+
 }
